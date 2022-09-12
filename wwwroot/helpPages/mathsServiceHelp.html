@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Help Maths</title>
+</head>
+<style>
+    table {
+      font-family: arial, sans-serif;
+      border-collapse: collapse;
+      width: 100%;
+    }
+    
+    td, th {
+      border: 1px solid #dddddd;
+      text-align: left;
+      padding: 8px;
+    }
+    
+    tr:nth-child(even) {
+      background-color: #dddddd;
+    }
+    </style>
+
+<body>
+    <h1>Service /api/maths - Documentation</h1>
+    <h3>Liste d'opérations possibles</h3>
+    <table>
+        <tr>
+            <th>Fonction</th>
+            <th>Écriture</th>
+            <th>Valeur de retour</th>
+        </tr>
+        <tr>
+            <td>Addition</td>
+            <td>?op=+&x=number&y=number</td>
+            <td>{"op":"+","x":number,"y":number,"result": x+y}</td>
+        </tr>
+        <tr>
+            <td>Soustraction</td>
+            <td>?op=-&x=number&y=number</td>
+            <td>{"op":"-","x":number,"y":number,"result": x-y}</td>
+        </tr>
+        <tr>
+            <td>Multiplication</td>
+            <td>?op=*&x=number&y=number</td>
+            <td>{"op":"*","x":number,"y":number,"result": x*y}</td>
+        </tr>
+        <tr>
+            <td>Division</td>
+            <td>?op=/&x=number&y=number</td>
+            <td>{"op":"/","x":number,"y":number,"result": x/y}</td>
+        </tr>
+        <tr>
+            <td>Modulo</td>
+            <td>?op=%&x=number&y=number</td>
+            <td>{"op":"%","x":number,"y":number,"result": x%y}</td>
+        </tr>
+        <tr>
+            <td>Factoriel</td>
+            <td>?op=!&n=number</td>
+            <td>{"op":"!","n":number,"result": n!}</td>
+        </tr>
+        <tr>
+            <td>Est un nombre premier (vrai/faux)</td>
+            <td>?op=p&n=number</td>
+            <td>{"op":"p","n":number,"result": true si n est un nombre premier}</td>
+        </tr>
+        <tr>
+            <td>Trouver nombre premier (nieme position)</td>
+            <td>?op=np&n=number</td>
+            <td>{"op":"np","n":number,"result": n ieme nombre premier}</td>
+        </tr>
+    </table>
+</body>
+
+</html>
