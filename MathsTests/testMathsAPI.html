@@ -73,7 +73,6 @@
             });
 
             async function launchTests(host) {
-                console.log("[" + host + "]")
                 problems = 0;
                 $(".container").empty();
                 $("#verdict").text("Test en cours");
@@ -157,7 +156,8 @@
                             return (result.value == parseInt(result.x) / parseInt(result.y));
                         case '%':
                             if (result.value == "NaN" && parseInt(result.y) == 0)
-                                return true; return (result.value == parseInt(result.x) % parseInt(result.y));
+                                return true;
+                            return (result.value == parseInt(result.x) % parseInt(result.y));
                         case '!': return (result.value == factorial(parseInt(result.n)));
                         case 'p': return (result.value == isPrime(parseInt(result.n)));
                         case 'np': return (result.value == findPrime(parseInt(result.n)));
@@ -172,8 +172,9 @@
             }
 
             function showResult(result) {
-                let status = (verify(result) ? "OK" : "ERROR");
-                if (!result)
+                let problem = !verify(result);
+                let status = (!problem ? "OK" : "ERROR");
+                if (problem)
                     problems++;
                 $(".container").append(status + " ---> " + JSON.stringify(result)).append($("<br>"));
             }

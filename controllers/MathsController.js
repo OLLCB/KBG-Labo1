@@ -119,7 +119,8 @@ module.exports =
                                 case "/":
                                     if (x == 0 || y == 0) {
                                         value = x / y;
-                                        this.HttpContext.path.params.error = "Division by 0!";
+                                        //this.HttpContext.path.params.error = "Division by 0!";
+                                        this.HttpContext.path.params.value = "Division by 0!";
                                         this.HttpContext.response.JSON(this.HttpContext.path.params);
                                     }
                                     else {
@@ -136,7 +137,8 @@ module.exports =
                                 case "%":
                                     if (x == 0 || y == 0) {
                                         value = x / y;
-                                        this.HttpContext.path.params.error = "Division by 0!";
+                                        //this.HttpContext.path.params.error = "Division by 0!";
+                                        this.HttpContext.path.params.value = "Division by 0!";
                                         this.HttpContext.response.JSON(this.HttpContext.path.params);
                                     }
                                     else {
