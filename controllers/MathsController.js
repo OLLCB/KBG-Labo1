@@ -54,7 +54,7 @@ module.exports =
             }
             return valide;
         }
-        checkIfMissingOrNaN(value){
+        isMissingOrNaN(value){
             let error = false;
             if(!value || isNaN(value))
                 error = true;
@@ -82,7 +82,7 @@ module.exports =
                 }
                 else {
                     if (singleNumberOperators.includes(op)) { // Vérifier si le nombre de paramètres nécessaire à faire les opérations existe.
-                        if (this.checkIfMissingOrNaN(this.HttpContext.path.params.n)) {
+                        if (this.isMissingOrNaN(this.HttpContext.path.params.n)) {
                             this.error("'n' is missing or not a number!");
                         }
                         else if (this.tooManyOperators(2)) { // S'il y a trop de paramètres dans la requête (Besoin de 'op' et 'n' seulement)
@@ -113,10 +113,10 @@ module.exports =
                         }
                     }
                     else if (doubleNumberOperators.includes(op)) { // Si est un opérateur à deux nombres
-                        if (this.checkIfMissingOrNaN(this.HttpContext.path.params.x)) { // Si 'X' est invalide ou inexistant
+                        if (this.isMissingOrNaN(this.HttpContext.path.params.x)) { // Si 'X' est invalide ou inexistant
                             this.error("'x' is missing or not a number!");
                         }
-                        else if (this.checkIfMissingOrNaN(this.HttpContext.path.params.y)){ // Si 'Y' est invalide ou inexistant
+                        else if (this.isMissingOrNaN(this.HttpContext.path.params.y)){ // Si 'Y' est invalide ou inexistant
                             this.error("'y' is missing or not a number!");
                         }
                         else if (this.tooManyOperators(3)) { // S'il y a trop de paramètres dans la requête (Besoin de 'op', 'x' et 'y' seulement)
