@@ -30,14 +30,15 @@ module.exports =
     class ContactsController extends require('./Controller') {
         constructor(HttpContext) {
             super(HttpContext);
+            this.params = this.HttpContext.path.params;
         }
         error(message) { // Send error message 
-            this.HttpContext.path.params.error = message;
-            this.HttpContext.response.JSON(this.HttpContext.path.params);
+            this.params.error = message;
+            this.HttpContext.response.JSON(this.params);
         }
         result(value) { // Send result
-            this.HttpContext.path.params.value = value;
-            this.HttpContext.response.JSON(this.HttpContext.path.params);
+            this.params.value = value;
+            this.HttpContext.response.JSON(this.params);
         }
         sendHelpPage(accessPath) {
             let helpPagePath = path.join(process.cwd(), accessPath);
@@ -62,7 +63,7 @@ module.exports =
         }
         tooManyOperators(limit){
             let tooMany = false;
-            if(Object.keys(this.HttpContext.path.params).length > limit)
+            if(Object.keys(this.params).length > limit)
                 tooMany = true;
             return tooMany;
         }
@@ -75,21 +76,21 @@ module.exports =
             else { // Si on veut faire une opération (queryString 'op' existe)
                 let singleNumberOperators = ["!", "p", "np"];
                 let doubleNumberOperators = [" ", "-", "*", "/", "%"];
-                let op = this.HttpContext.path.params.op;
+                let op = this.params.op;
                 // Si 'op' n'est pas une opération valide ou est manquant
-                if (!this.valideateOperator(this.HttpContext.path.params.op)) {
+                if (!this.valideateOperator(this.params.op)) {
                     this.error("Parameter 'op' is missing or invalid!");
                 }
                 else {
                     if (singleNumberOperators.includes(op)) { // Vérifier si le nombre de paramètres nécessaire à faire les opérations existe.
-                        if (this.isMissingOrNaN(this.HttpContext.path.params.n)) {
+                        if (this.isMissingOrNaN(this.params.n)) {
                             this.error("'n' is missing or not a number!");
                         }
                         else if (this.tooManyOperators(2)) { // S'il y a trop de paramètres dans la requête (Besoin de 'op' et 'n' seulement)
                             this.error("Too many parameters!");
                         }
                         else { // Si 'op' est valide et 'n' est un nombre valide.
-                            let n = this.HttpContext.path.params.n;
+                            let n = this.params.n;
                             let value;
                             switch (op) {
                                 case "!":
@@ -113,23 +114,23 @@ module.exports =
                         }
                     }
                     else if (doubleNumberOperators.includes(op)) { // Si est un opérateur à deux nombres
-                        if (this.isMissingOrNaN(this.HttpContext.path.params.x)) { // Si 'X' est invalide ou inexistant
+                        if (this.isMissingOrNaN(this.params.x)) { // Si 'X' est invalide ou inexistant
                             this.error("'x' is missing or not a number!");
                         }
-                        else if (this.isMissingOrNaN(this.HttpContext.path.params.y)){ // Si 'Y' est invalide ou inexistant
+                        else if (this.isMissingOrNaN(this.params.y)){ // Si 'Y' est invalide ou inexistant
                             this.error("'y' is missing or not a number!");
                         }
                         else if (this.tooManyOperators(3)) { // S'il y a trop de paramètres dans la requête (Besoin de 'op', 'x' et 'y' seulement)
                             this.error("Too many parameters!");
                         }
                         else { // Si 'op', 'X' ET 'Y' sont tous valide
-                            let x = parseInt(this.HttpContext.path.params.x);
-                            let y = parseInt(this.HttpContext.path.params.y);
+                            let x = parseInt(this.params.x);
+                            let y = parseInt(this.params.y);
                             let value;
                             switch (op) {
                                 case " ":
                                     value = x + y;
-                                    this.HttpContext.path.params.op = "+"; // Remplacer le ' ' dans le querystring par le symbole '+', Problème unique à l'opérateur '+'
+                                    this.params.op = "+"; // Remplacer le ' ' dans le querystring par le symbole '+', Problème unique à l'opérateur '+'
                                     this.result(value);
                                     break;
                                 case "-":
